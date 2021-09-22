@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  poste-auction-notify:
+    container_name: auction-notify
+    build: ./
+    #command: python app.py
+    command: tail -f /dev/null
+    volumes:
+      - ".:/auction"
