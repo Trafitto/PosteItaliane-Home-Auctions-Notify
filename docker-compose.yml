@@ -2,9 +2,9 @@ version: '3'
 
 services:
   poste-auction-notify:
-    container_name: auction-notify
+    container_name: poste-auction-notify
     build: ./
     #command: python app.py
     command: tail -f /dev/null
     volumes:
-      - ".:/auction"
+      - ".:/app"
