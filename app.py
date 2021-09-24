@@ -9,8 +9,9 @@ def check_new_home():
 
     for data in db.get_all():
         if not data.value:
-            print(data.key)
-            print("To notify")
+            print(f'Finded new home to notify {data.key}')
+            # TODO: Notify user
+            db.set(data.key, True) # Save the status
 
         
 
