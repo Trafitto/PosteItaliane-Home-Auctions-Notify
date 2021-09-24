@@ -1,4 +1,4 @@
-# PosteItaliane Auction Notify
+# PosteItaliane Real Estate Auctions Notify
 
 
 Check and notify if a new house has been added to the list of houses at the auction of [Poste Italiane's properties](https://www.poste.it/alloggi.html?STZ=DPR1390)
@@ -8,7 +8,13 @@ Check and notify if a new house has been added to the list of houses at the auct
 
 This project is currently in development, and it still doesn't do anything specific
 
+#### The idea:
 
+- Scrape the list
+- Save in Json format
+- Scrape again
+- Check if new home was added
+- Notify if yes
 ## Installing
 
 `Docker go brr`
@@ -25,6 +31,6 @@ This project is currently in development, and it still doesn't do anything speci
 - Add more channels for possible notifications
 - Add the URL of the home reference file
 
-## Why
+#### Why
 
 I just want to buy a fucking house, and have fun in the meantime
