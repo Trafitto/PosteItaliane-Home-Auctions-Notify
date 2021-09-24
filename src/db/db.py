@@ -1,7 +1,11 @@
 import json
 import os
 
-
+class KeyValue():
+    def __init__(self, key, value):
+        self.key = key
+        self.value = value
+        
 class Db(object):
     def __init__(self, path=None):
         if path is None:
@@ -21,7 +25,6 @@ class Db(object):
 
     def set(self, key, value):
         self._check_key(key)
-
         self.data[key] = value
 
         self.save()
@@ -32,6 +35,10 @@ class Db(object):
             return self.data[key]
         except KeyError:
             print(f"No value found for key: {key}")
+
+    def get_all(self):
+        data_tuple = self.data.items()
+        return [KeyValue(data[0], data[1]) for data in data_tuple]
 
     def key_exist(self, key):
         self._check_key(key)

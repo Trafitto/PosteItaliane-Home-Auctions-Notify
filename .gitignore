@@ -136,3 +136,11 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+# Db data
+
+src/data.json
+
+# Super private file with smtp server config
+
+src/settings/private.py

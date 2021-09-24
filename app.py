@@ -1,10 +1,21 @@
 import logging
 import sys
 from src.spider import Scraper
+from src.db.db import Db
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s', datefmt='%d-%m-%y %H:%M:%S')
-handler = logging.StreamHandler(sys.stdout)
-logging.getLogger('').addHandler(handler)
+
+def check_new_home():
+    db = Db()
+
+    for data in db.get_all():
+        if not data.value:
+            print(data.key)
+            print("To notify")
+
+        
+
+
 
 if __name__ == "__main__":
     Scraper().scrape()
+    check_new_home()
