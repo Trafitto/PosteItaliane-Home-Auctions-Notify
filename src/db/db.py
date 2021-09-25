@@ -37,8 +37,7 @@ class Db(object):
             print(f"No value found for key: {key}")
 
     def get_all(self):
-        data_tuple = self.data.items()
-        return [KeyValue(data[0], data[1]) for data in data_tuple]
+        return [KeyValue(data[0], data[1]) for data in self.data.items()]
 
     def key_exist(self, key):
         self._check_key(key)
