@@ -2,6 +2,7 @@ import logging
 import sys
 from src.spider import Scraper
 from src.db.db import Db
+from src.notify import EmailNotify 
 
 
 def check_new_home():
@@ -20,3 +21,4 @@ def check_new_home():
 if __name__ == "__main__":
     Scraper().scrape()
     check_new_home()
+    EmailNotify().send('OLA')
