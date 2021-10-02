@@ -1,7 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-from .settings.settings import AUCTION_URL
-import logging
+from .settings import AUCTION_URL
 from .db.db import Db
 
 class Scraper():
