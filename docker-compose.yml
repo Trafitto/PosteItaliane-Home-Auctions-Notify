@@ -6,6 +6,7 @@ services:
     build: ./
     #command: python app.py
     command: tail -f /dev/null
-    # environment is being taken from .env
+    env_file:
+      - .env
     volumes:
       - ".:/app"

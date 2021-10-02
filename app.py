@@ -14,6 +14,6 @@ def check_new_home():
             db.set(data.key, True) # Save the status
 
 if __name__ == "__main__":
-    Scraper().scrape()
-    check_new_home()
+    # Scraper().scrape()
+    # check_new_home()
     EmailNotify().send('OLA')

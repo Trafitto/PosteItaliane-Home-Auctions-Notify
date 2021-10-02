@@ -1,13 +1,10 @@
 import smtplib
 import os
-from settings.settings import GOOGLE_DOMAINS_LIST, HOTMAIL_DOMAINS_LIST, SMTP_CONFIG_MAP
+from .settings import GOOGLE_DOMAINS_LIST, HOTMAIL_DOMAINS_LIST, SMTP_CONFIG_MAP
 
 class SMTP_Provider():
-    def __init__(self):
-        self.setup_smtp()
-
-    def select_provider(self):
-        sender_parts = self.smtp_login.split("@")
+    def select_provider(self, smtp_login):
+        sender_parts = smtp_login.split("@")
         _, domain = sender_parts
         pick_provider = None
         if domain in GOOGLE_DOMAINS_LIST:
@@ -16,34 +13,30 @@ class SMTP_Provider():
             pick_provider = "hotmail"
         else:
             raise Exception(f"domain {domain} not supported")
+        
+        use_provider = SMTP_CONFIG_MAP[pick_provider]
+        if not use_provider:
+            raise Exception(f"unable to use an SMTP provider")
 
-        return SMTP_CONFIG_MAP[pick_provider]
-
-    def setup_smtp(self):
-        smtp_login = os.getenv("SENDER_EMAIL")
-        if smtp_login and smtp_login.strip():
-            self.smtp_login = smtp_login
-        else:
-            raise Exception(f"SENDER_EMAIL environment value not provided")
-
-        smtp_password = os.getenv("SENDER_PASSWORD")
-        if smtp_password and smtp_password.strip():
-            self.smtp_password = smtp_password
-        else:
-            raise Exception(f"SENDER_PASSWORD environment value not provided")
-   
+        return use_provider
     
-    def get_smtp_session(self):
-        smtp_provider = self.select_provider(self.login)
+    def get_smtp_session(self, sender_email, sender_password):
+        smtp_provider = self.select_provider(sender_email)
         smtp_session = smtplib.SMTP(
-            smtp_provider.host, 
-            smtp_provider.port
+            smtp_provider["host"], 
+            smtp_provider["port"]
         )
 
-        if smtp_provider.requires_auth:
-            smtp_session.starttls()
-            smtp_session.login(self.smtp_login, self.smtp_password)
-            smtp_session.ehlo()
+        if smtp_provider["requires_auth"]:
+            try:
+                smtp_session.starttls()
+                smtp_session.login(sender_email, sender_password)
+                smtp_session.ehlo()
+            except smtplib.SMTPAuthenticationError:
+                print("""
+                    mail sending has been denied by Google because your account does not allow less-secure applications\n
+                    Learn more at: https://support.google.com/accounts/answer/6010255
+                """)
 
         return smtp_session
         
