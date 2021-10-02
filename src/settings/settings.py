@@ -1,7 +1,5 @@
-import os
-from src.settings.private import *
-
 AUCTION_URL='https://www.poste.it/alloggi.html'
+DEFAULT_RECEIVER_EMAIL="foo@bar.baz"
 
 HOTMAIL_DOMAINS_LIST = ["live.com", "hotmail.com", "hotmail.it", "live.it"]
 HOTMAIL_SMTP_CONFIG = {

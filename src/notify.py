@@ -20,4 +20,4 @@ class EmailNotify():
         )
         smtp_session.quit()
 
-        print(f"Mail sent to: {self.receiver_email}")
+        print(f"Mail sent to: {receiver_email}")
